@@ -30,7 +30,7 @@ namespace MVC_Project.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult ViewEmployee()
+        public IActionResult ViewEmployee(int id)
         {
             Employee obj=new Employee();
             obj.Address = "Mumbai";
@@ -48,12 +48,13 @@ namespace MVC_Project.Controllers
                 _context.SaveChanges();
             }
         }
-        public void getAllEmployee()
+        public IActionResult getAllEmployee()
         {
             List<Employee> lstEmp = _context.tblEmployee.ToList();
+            return View(lstEmp);
         }
-
-        public void deleteEmployee()
+        
+        public void deleteEmployee(int id)
         {
             var result = _context.tblEmployee.FirstOrDefault(e => e.Emp_Id == 2);
             if(result != null)
