@@ -38,9 +38,20 @@ namespace MVC_Project.Controllers
         }
         public IActionResult EditEmployee()
         {
-            return View();
+            Employee obj = new Employee();
+            obj.Address = "Mumbai";
+
+            return View(obj);
         }
-        
+        [HttpPost]
+        public IActionResult EditEmployee(Employee Obj)
+        {
+            Employee obj = new Employee();
+            obj.Address = "Mumbai";
+
+            return View(obj);
+        }
+
         public void UpdateEmployee()
         {
             var result = _context.tblEmployee.FirstOrDefault(e => e.Emp_Id == 2);
