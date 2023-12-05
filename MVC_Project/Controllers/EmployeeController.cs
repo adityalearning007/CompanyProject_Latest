@@ -36,6 +36,10 @@ namespace MVC_Project.Controllers
             obj.Address = "Mumbai";
             return View(obj);
         }
+        public IActionResult EditEmployee()
+        {
+            return View();
+        }
         
         public void UpdateEmployee()
         {
