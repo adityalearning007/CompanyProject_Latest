@@ -21,8 +21,26 @@ namespace MVC_Project.Controllers
         [HttpPost]
         public void Save(Employee Obj)
         {
-            _context.tblEmployee.Add(Obj);
-            _context.SaveChanges();            
+            if (Obj.Emp_Id == 0)
+            {
+                _context.tblEmployee.Add(Obj);
+                _context.SaveChanges();
+            }
+            else
+            {
+                var result = _context.tblEmployee.FirstOrDefault(e => e.Emp_Id == Obj.Emp_Id);
+                if (result != null)
+                {
+                    //Employee obj = new Employee();
+                    result.FirstName= Obj.FirstName;
+                    result.LastName= Obj.LastName;   
+                    result.DOJ= Obj.DOJ;
+                    result.Address= Obj.Address;
+                    result.Department = Obj.Department;
+                    result.Contact= Obj.Contact;
+                    _context.SaveChanges();
+                }
+            }
         }
         [HttpGet]
         public IActionResult Save()
@@ -52,32 +70,48 @@ namespace MVC_Project.Controllers
             return View(obj);
         }
 
-        public void UpdateEmployee()
-        {
-            var result = _context.tblEmployee.FirstOrDefault(e => e.Emp_Id == 2);
-            if (result != null)
-            {
-                Employee obj = new Employee();
-                result.Department = "ADMIN";
-                result.LastName = "Pimple";
-                _context.SaveChanges();
-            }
-        }
-        public IActionResult getAllEmployee()
+        //public void UpdateEmployee()
+        //{
+       
+        //}
+        [HttpGet]
+        public IActionResult GetEmployee()
         {
             List<Employee> lstEmp = _context.tblEmployee.ToList();
+            List<Employee> LstNew = new List<Employee>();
+            //foreach (Employee obj in lstEmp)
+            //{
+            //    LstNew.Add(new Employee { Address = obj.Address, DOJ = Convert.ToDateTime(obj.DOJ.ToString("MM/dd/yyyy")) });
+            //}
             return View(lstEmp);
         }
         
-        public void deleteEmployee(int id)
+        public void deleteEmployee(int EmpId)
         {
-            var result = _context.tblEmployee.FirstOrDefault(e => e.Emp_Id == 2);
+            var result = _context.tblEmployee.FirstOrDefault(e => e.Emp_Id == EmpId);
             if(result != null)
             {
                 _context.tblEmployee.Remove(result);
                 _context.SaveChanges();
             }
-
+        }
+        //[HttpGet]
+        public IActionResult UpdateEmployee(int EmpId)
+        {
+            List<Employee> lst = _context.tblEmployee.Where(e => e.Emp_Id == EmpId).ToList();
+            Employee Obj = new Employee();
+            foreach (var item in lst)
+            {
+                Obj.FirstName = item.FirstName;
+                Obj.LastName= item.LastName;
+                Obj.Address = item.Address;
+                Obj.Department = item.Department;
+                Obj.DOJ = item.DOJ;
+                Obj.Contact= item.Contact;
+                Obj.Emp_Id= item.Emp_Id;
+            }
+            return View(Obj);
+            
         }
 
     }

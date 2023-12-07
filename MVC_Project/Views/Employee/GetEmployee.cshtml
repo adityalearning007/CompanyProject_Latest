@@ -1,19 +1,18 @@
 ﻿@model IEnumerable<MVC_Project.Models.Employee>
 
-@{
-    ViewData["Title"] = "getAllEmployee";
-}
+@*@{
+    ViewData["Title"] = "GetEmployee";
+}*@
 
-<h1>getAllEmployee</h1>
+<h1>Employee List</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Emp_Id)
+                @*@Html.DisplayNameFor(model => model.Emp_Id)*@
+                Employee ID
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
@@ -40,30 +39,29 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Emp_Id)
+                @Html.DisplayFor(e => item.Emp_Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(e => item.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                @Html.DisplayFor(e => item.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Contact)
+                @Html.DisplayFor(e => item.Contact)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
+                @Html.DisplayFor(e => item.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Department)
+                @Html.DisplayFor(e => item.Department)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DOJ)
             </td>
             <td>
-                    @Html.ActionLink("Employee", "ViewEmployee", new {  id=item.Emp_Id  }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Employee", "deleteEmployee", new {  id=item.Emp_Id  })
+                    @Html.ActionLink("Edit", "UpdateEmployee", new{ EmpId=item.Emp_Id} ) |
+                    @Html.ActionLink("Delete", "deleteEmployee", new { EmpId=item.Emp_Id })
             </td>
         </tr>
 }
