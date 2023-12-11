@@ -8,5 +8,7 @@ namespace MVC_Project.Models
         }
         //Tables        
        public DbSet<Employee> tblEmployee { get; set; }
+        public DbSet<Leave> tblLeave { get; set; }
+
     }
 }

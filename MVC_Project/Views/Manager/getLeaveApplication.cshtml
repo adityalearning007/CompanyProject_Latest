@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MVC_Project.Models.Leave>
+
+@{
+    ViewData["Title"] = "getLeaveApplication";
+}
+
+<h1>getLeaveApplication</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlanStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlanEndDate)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.Reason)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlanStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlanEndDate)
+            </td>
+          
+            <td>
+                @Html.DisplayFor(modelItem => item.Reason)
+            </td>
+            <td>
+                    @Html.ActionLink("Approve", "ApproveLeave", new {  Id=item.Id  }, new { @class="btn btn-primary"}) |
+                    @Html.ActionLink("Reject", "RejectLeave", new {  Id=item.Id  }, new { @class="btn btn-danger"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
